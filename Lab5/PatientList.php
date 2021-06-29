@@ -1,29 +1,46 @@
 <?php
-	$doctorid="";
-	$err_doctorid="";
+	$pname="";
+	$err_pname="";
 	$hour="";
 	$err_hour="";
     $ampm="";
 	$err_ampm="";
     $minute="";
 	$err_minute="";
-	$hospital="";
-	$err_hospital="";
-	
+	$phone="";
+	$err_phone="";
+	$department=[];
+    $err_department="";
 
 	$hasError=false;
 
 	$array= array("AM","PM");
     
-	
+	function Dep($de){
+	global $department;
+	foreach($department as $d){
+		if($d==$de){
+			return true;
+		}
+	}
+	return false;
+    }
 	if(isset($_POST["submit"])){
-		if(empty($_POST["doctorid"])){
+		if(empty($_POST["pname"])){
 			$hasError = true;
-			$err_doctorid="Doctor ID Required";
+			$err_pname="Patient Name Required";
 		}
 		else{
-		$doctorid = $_POST["doctorid"];
+		$pname = $_POST["pname"];
 		}
+		
+		/*if(!isset($_POST["department"])){
+		$hasError=true;
+		$err_department="Required Department";  
+	  }
+	  else{
+		  $department= $_POST["department"];
+	  }*/
 		
 		if (!isset($_POST["hour"])){
 			$hasError = true;
@@ -46,40 +63,39 @@
         else{
         $minute = $_POST["minute"];
          }
-		 if(empty($_POST["hospital"])){
+		 if(empty($_POST["phone"])){
 			$hasError = true;
-			$err_hospital="Hospital Required";
+			$err_phone="Phone Required";
 		}
 		else{
-		$hospital = $_POST["hospital"];
+		$phone = $_POST["phone"];
 		}
        
 		if(!$hasError){
 
 			echo "<h1>Form submitted</h1>";
-			echo $_POST["doctorid"]."<br>";
+			echo $_POST["pname"]."<br>";
 			echo $_POST["hour"]."<br>";
 			echo $_POST["minute"]."<br>";
 			echo $_POST["ampm"]."<br>";
-            echo $_POST["hospital"]."<br>";
+            echo $_POST["phone"]."<br>";
 		  }
 
 	}
 	
 
 ?>
-
 <html>
 	<body>
-	<h1 align="middle">Appointment</h1>
+	<h1 align="middle">Patient List</h1>
 		<form action="" method="post">
 		<fieldset>
 		<p align="middle">
 			<table>
-				<tr>
-					<td>Doctor ID</td>
-					<td>: <input type="text" name="doctorid" value="<?php echo $doctorid;?>" > </td>
-					<td><span> <?php echo $err_doctorid;?></span></td>
+			<tr>
+					<td>Patient Name</td>
+					<td>: <input type="text" name="pname" value="<?php echo $pname;?>" > </td>
+					<td><span> <?php echo $err_pname;?></span></td>
 				</tr>
 				<tr>
 					<td>Time</td>
@@ -125,9 +141,9 @@
 			        <span><?php echo $err_ampm;?></span></td>
 				</tr>
 				<tr>
-					<td>Hospital</td>
-					<td>: <input type="text" name="hospital" value="<?php echo $hospital;?>" > </td>
-					<td><span> <?php echo $err_hospital;?></span></td>
+					<td>Phone</td>
+					<td>: <input type="text" name="phone" value="<?php echo $phone;?>" > </td>
+					<td><span> <?php echo $err_phone;?></span></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="middle"><input type="submit" name="submit" value="Confirm"></td>
@@ -139,3 +155,4 @@
 		</form>
 	</body>
 </html>
+				
